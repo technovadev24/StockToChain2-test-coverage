@@ -59,5 +59,13 @@ describe("MockV3Aggregator", function () {
             expect(roundData.updatedAt).to.be.gt(0);
             expect(roundData.answeredInRound).to.be.gt(0);
         });
+
+        it("Should return correct description", async function () {
+            expect(await mockV3Aggregator.description()).to.equal("Mock V3 Aggregator");
+        });
+
+        it("Should return correct version", async function () {
+            expect(await mockV3Aggregator.version()).to.equal(3);
+        });
     });
 }); 
