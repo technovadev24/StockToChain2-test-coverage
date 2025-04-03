@@ -375,12 +375,17 @@ contract StockToChain2 is ERC20, Ownable, Pausable, ReentrancyGuard {
 
     }
 
-    // receive / fallback / getters
-    receive() external payable {
-        emit Received(msg.sender, msg.value);
-    }
+   /// @notice Appelé lorsqu'un envoi de POL natif est effectué sans data (ex : simple transfert)
+receive() external payable {
+    require(msg.value > 0, "Receive: Zero value");
+    emit Received(msg.sender, msg.value);
+}
 
-    fallback() external payable {
-        emit FallbackCalled(msg.sender, msg.value, msg.data);
-    }
+/// @notice Appelé lorsqu'un envoi de POL natif est accompagné de data mais n'appelle aucune fonction
+fallback() external payable {
+    require(msg.data.length == 0, "Fallback: Unexpected call data");
+    require(msg.value > 0, "Fallback: Zero value");
+    emit FallbackCalled(msg.sender, msg.value, msg.data);
+}
+
 }

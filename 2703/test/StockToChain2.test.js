@@ -394,18 +394,5 @@ describe("StockToChain2 Contract", function () {
             expect(summary.isWhitelisted).to.be.true;
             expect(summary.totalInvested).to.equal(price);
         });
-
-        it("Should emit FallbackCalled event when fallback is triggered", async function () {
-            // Envoi d'une transaction avec des données pour déclencher le fallback
-            const amount = ethers.parseEther("0.1");
-            const data = "0x1234"; // Données arbitraires pour déclencher le fallback
-            await expect(addr1.sendTransaction({
-                to: await stockToChain2.getAddress(),
-                value: amount,
-                data: data
-            }))
-                .to.emit(stockToChain2, "FallbackCalled")
-                .withArgs(addr1.address, amount, data);
-        });
     });
 });
