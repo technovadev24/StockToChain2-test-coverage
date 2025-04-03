@@ -383,7 +383,7 @@ receive() external payable {
 
 /// @notice Appelé lorsqu'un envoi de POL natif est accompagné de data mais n'appelle aucune fonction
 fallback() external payable {
-    require(msg.data.length == 0, "Fallback: Unexpected call data");
+    
     require(msg.value > 0, "Fallback: Zero value");
     emit FallbackCalled(msg.sender, msg.value, msg.data);
 }
